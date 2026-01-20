@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>충청남도 교육청 교무학사 업무 매뉴얼</title>
   <style>
+        /* 기본 스타일 초기화 */
         * {
             margin: 0;
             padding: 0;
@@ -18,19 +19,19 @@
             overflow-x: hidden;
         }
 
-        html, body {
-            height: 100%;
-        }
-
         .container {
             width: 100%;
-            height: 100%;
-            overflow-y: auto;
+            min-height: 100vh;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* 고정 헤더 */
+        /* 헤더 스타일 */
         .header {
+            width: 100%;
+            max-width: 800px;
             background: linear-gradient(135deg, #0288d1 0%, #0097a7 100%);
             color: white;
             padding: 28px 20px;
@@ -43,37 +44,31 @@
         .header h1 {
             font-size: 28px;
             font-weight: 700;
-            letter-spacing: -0.5px;
+            word-break: keep-all;
         }
 
-        /* 메인 컨텐츠 영역 */
+        /* 컨텐츠 영역 */
         .content {
+            width: 100%;
             max-width: 800px;
-            margin: 0 auto;
         }
 
-        /* 화면 전환을 위한 섹션 */
+        /* 화면 전환 효과 */
         .screen {
-            display: none;
+            display: none; /* 기본적으로 숨김 */
             animation: fadeIn 0.4s ease-in-out;
         }
 
         .screen.active {
-            display: block;
+            display: block; /* active 클래스가 있으면 보임 */
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 메인 메뉴 버튼 (교무 업무, 연구 업무) */
+        /* 메인 메뉴 카드 */
         .main-menu {
             display: grid;
             gap: 24px;
@@ -83,22 +78,22 @@
         .menu-card {
             background: white;
             border-radius: 20px;
-            padding: 48px 32px;
+            padding: 40px 32px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.2s, box-shadow 0.2s;
             text-align: center;
             border: 3px solid transparent;
         }
 
         .menu-card:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-5px);
             box-shadow: 0 16px 40px rgba(2, 136, 209, 0.2);
             border-color: #0097a7;
         }
 
         .menu-card h2 {
-            font-size: 32px;
+            font-size: 28px;
             color: #0277bd;
             font-weight: 700;
             margin-bottom: 12px;
@@ -107,7 +102,6 @@
         .menu-card p {
             font-size: 16px;
             color: #666;
-            line-height: 1.6;
         }
 
         /* 상세 화면 헤더 */
@@ -115,13 +109,13 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
             flex-wrap: wrap;
             gap: 16px;
         }
 
         .detail-title {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             color: #0277bd;
         }
@@ -130,19 +124,17 @@
             background: linear-gradient(135deg, #0288d1 0%, #00acc1 100%);
             color: white;
             border: none;
-            padding: 14px 28px;
-            border-radius: 12px;
-            font-size: 16px;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: opacity 0.2s;
             box-shadow: 0 4px 12px rgba(2, 136, 209, 0.3);
         }
 
         .back-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(2, 136, 209, 0.4);
-            background: linear-gradient(135deg, #0277bd 0%, #0097a7 100%);
+            opacity: 0.9;
         }
 
         /* 항목 리스트 */
@@ -154,11 +146,11 @@
 
         .item-card {
             background: white;
-            border-radius: 16px;
-            padding: 24px;
+            border-radius: 12px;
+            padding: 20px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: transform 0.2s;
             border-left: 5px solid #0097a7;
             display: flex;
             align-items: center;
@@ -166,276 +158,172 @@
         }
 
         .item-card:hover {
-            transform: translateX(8px);
-            box-shadow: 0 8px 24px rgba(0, 151, 167, 0.15);
+            transform: translateX(5px);
             border-left-color: #0277bd;
         }
 
         .item-number {
             background: linear-gradient(135deg, #0288d1 0%, #00acc1 100%);
             color: white;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 14px;
             flex-shrink: 0;
         }
 
         .item-text {
-            font-size: 18px;
+            font-size: 16px;
             color: #333;
             font-weight: 600;
             flex-grow: 1;
-        }
-
-        .item-arrow {
-            color: #0097a7;
-            font-size: 24px;
-            flex-shrink: 0;
+            word-break: keep-all;
         }
 
         /* 푸터 */
         .footer {
-            text-align: center;
-            padding: 32px 20px;
             margin-top: 48px;
-            color: #666;
-            font-size: 14px;
-            border-top: 1px solid rgba(2, 136, 209, 0.1);
+            color: #888;
+            font-size: 13px;
+            text-align: center;
         }
 
-        /* 반응형 디자인 */
+        /* 반응형 */
         @media (min-width: 768px) {
-            .container {
-                padding: 40px;
-            }
-
-            .header h1 {
-                font-size: 36px;
-            }
-
-            .main-menu {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .item-list {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .main-menu { grid-template-columns: 1fr 1fr; }
+            .item-list { grid-template-columns: 1fr 1fr; }
         }
-
-        @media (max-width: 767px) {
-            .menu-card {
-                padding: 36px 24px;
-            }
-
-            .menu-card h2 {
-                font-size: 26px;
-            }
-
-            .detail-title {
-                font-size: 24px;
-            }
-
-            .item-text {
-                font-size: 16px;
-            }
-        }
-    </style>
-  <style>@view-transition { navigation: auto; }</style>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
-  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
-  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+  </style>
  </head>
  <body>
-  <div class="container"><!-- 고정 헤더 -->
+  <div class="container">
    <div class="header">
-    <h1 id="mainTitle">충청남도 교육청 교무학사 업무 매뉴얼[초등]</h1>
+    <h1>충청남도 교육청 교무학사 업무 매뉴얼[초등]</h1>
    </div>
-   <div class="content"><!-- 메인 메뉴 화면 -->
+
+   <div class="content">
+    
     <div id="mainScreen" class="screen active">
      <div class="main-menu">
-      <div class="menu-card" data-category="교무 업무">
-       <h2 id="category1">📚 교무 업무</h2>
+      <div class="menu-card" onclick="openMenu('교무 업무')">
+       <h2>📚 교무 업무</h2>
        <p>학사 운영 및 학적 관리 업무</p>
       </div>
-      <div class="menu-card" data-category="연구 업무">
-       <h2 id="category2">💡 연구 업무</h2>
+      <div class="menu-card" onclick="openMenu('연구 업무')">
+       <h2>💡 연구 업무</h2>
        <p>수업 혁신 및 학업 성취 지원</p>
       </div>
      </div>
-    </div><!-- 교무 업무 상세 화면 -->
+    </div>
+
     <div id="gyomuScreen" class="screen">
      <div class="detail-header">
-      <div class="detail-title">
-       📚 교무 업무
-      </div><button class="back-button" id="backButton1"> <span id="backButtonText1">← 메인으로 돌아가기</span> </button>
+      <div class="detail-title">📚 교무 업무</div>
+      <button class="back-button" onclick="goHome()">← 메인으로 돌아가기</button>
      </div>
      <div class="item-list" id="gyomuList"></div>
-    </div><!-- 연구 업무 상세 화면 -->
+    </div>
+
     <div id="yeonguScreen" class="screen">
      <div class="detail-header">
-      <div class="detail-title">
-       💡 연구 업무
-      </div><button class="back-button" id="backButton2"> <span id="backButtonText2">← 메인으로 돌아가기</span> </button>
+      <div class="detail-title">💡 연구 업무</div>
+      <button class="back-button" onclick="goHome()">← 메인으로 돌아가기</button>
      </div>
      <div class="item-list" id="yeonguList"></div>
-    </div><!-- 푸터 -->
+    </div>
+
     <div class="footer">
      © 2026 충청남도교육청. All rights reserved.
     </div>
    </div>
   </div>
+
   <script>
-        // TODO: 실제 URL로 변경 필요
-        // 각 항목의 URL을 아래 객체에서 수정하시면 됩니다.
-        const URL_MAP = {
-            "교무 업무": {
-                "[2022 개정 교육과정]": "https://works.do/x0NHsNf",
-                "[학교교육과정 편성·운영]": "https://works.do/FbewNPM",
-                "[범교과 학습]": "https://works.do/FbewNPM",
-                "[신입생 취학 관리]": "https://example.com/gyomu/new-student",
-                "[입학식(시업식)]": "https://example.com/gyomu/entrance-ceremony",
-                "[학교교육과정 설명회 및 학부모 총회]": "https://example.com/gyomu/parent-meeting",
-                "[교외(가정)체험학습]": "https://works.do/5ZYlxAJ",
-                "[방학 운영 계획]": "https://example.com/gyomu/vacation-plan",
-                "[학습 발표회(학예회, 예술제, 축제 등)]": "https://example.com/gyomu/presentation",
-                "[졸업 및 진학 처리(졸업사정)]": "https://example.com/gyomu/graduation",
-                "[학교생활기록부 관리]": "https://example.com/gyomu/school-record",
-                "[행정정보 공동이용]": "https://example.com/gyomu/admin-info",
-                "[학생 출결상황 관리(미인정결석 대응)]": "https://example.com/gyomu/attendance",
-                "[전·출입학생 학적 관리]": "https://example.com/gyomu/transfer",
-                "[취학의무 면제 및 유예]": "https://works.do/xEbS7MU",
-                "[정원외 학적 관리]": "https://works.do/Fulsjzb",
-                "[귀국학생 재취학 및 편입학 관리]": "https://works.do/Ga0PO1N",
-                "[취임(부임) 및 퇴임(이임) 행사]": "https://works.do/5sCbhdF"
-            },
-            "연구 업무": {
-                "참학력": "https://example.com/yeongu/cham-ability",
-                "수업혁신(장학)": "https://example.com/yeongu/innovation",
-                "학업성적관리": "https://example.com/yeongu/grade-management",
-                "기초학력 향상": "https://example.com/yeongu/basic-ability",
-                "과정중심평가": "https://example.com/yeongu/process-evaluation",
-                "독서인문소양 교육": "https://example.com/yeongu/reading-humanities"
-            }
-        };
+    // URL 데이터 정의
+    const URL_MAP = {
+        "교무 업무": {
+            "[2022 개정 교육과정]": "https://works.do/x0NHsNf",
+            "[학교교육과정 편성·운영]": "https://works.do/FbewNPM",
+            "[범교과 학습]": "https://works.do/FbewNPM",
+            "[신입생 취학 관리]": "https://example.com/gyomu/new-student",
+            "[입학식(시업식)]": "https://example.com/gyomu/entrance-ceremony",
+            "[학교교육과정 설명회 및 학부모 총회]": "https://example.com/gyomu/parent-meeting",
+            "[교외(가정)체험학습]": "https://works.do/5ZYlxAJ",
+            "[방학 운영 계획]": "https://example.com/gyomu/vacation-plan",
+            "[학습 발표회(학예회, 예술제, 축제 등)]": "https://example.com/gyomu/presentation",
+            "[졸업 및 진학 처리(졸업사정)]": "https://example.com/gyomu/graduation",
+            "[학교생활기록부 관리]": "https://example.com/gyomu/school-record",
+            "[행정정보 공동이용]": "https://example.com/gyomu/admin-info",
+            "[학생 출결상황 관리(미인정결석 대응)]": "https://example.com/gyomu/attendance",
+            "[전·출입학생 학적 관리]": "https://example.com/gyomu/transfer",
+            "[취학의무 면제 및 유예]": "https://works.do/xEbS7MU",
+            "[정원외 학적 관리]": "https://works.do/Fulsjzb",
+            "[귀국학생 재취학 및 편입학 관리]": "https://works.do/Ga0PO1N",
+            "[취임(부임) 및 퇴임(이임) 행사]": "https://works.do/5sCbhdF"
+        },
+        "연구 업무": {
+            "참학력": "https://example.com/yeongu/cham-ability",
+            "수업혁신(장학)": "https://example.com/yeongu/innovation",
+            "학업성적관리": "https://example.com/yeongu/grade-management",
+            "기초학력 향상": "https://example.com/yeongu/basic-ability",
+            "과정중심평가": "https://example.com/yeongu/process-evaluation",
+            "독서인문소양 교육": "https://example.com/yeongu/reading-humanities"
+        }
+    };
 
-        // 화면 전환 함수
-        function showScreen(screenId) {
-            // 모든 화면 숨기기
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            
-            // 선택한 화면만 표시
-            document.getElementById(screenId).classList.add('active');
-            
-            // 스크롤을 최상단으로 이동
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+    // 메뉴 열기 함수
+    function openMenu(category) {
+        // 모든 화면 숨기기
+        document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+
+        let targetListId = '';
+        let targetScreenId = '';
+
+        if (category === '교무 업무') {
+            targetListId = 'gyomuList';
+            targetScreenId = 'gyomuScreen';
+        } else if (category === '연구 업무') {
+            targetListId = 'yeonguList';
+            targetScreenId = 'yeonguScreen';
         }
 
-        // 리스트 항목 생성 함수
-        function createItemList(category, containerId) {
-            const container = document.getElementById(containerId);
-            container.innerHTML = ''; // 기존 내용 초기화
-            
-            const items = Object.keys(URL_MAP[category]);
-            
-            items.forEach((item, index) => {
-                const card = document.createElement('div');
-                card.className = 'item-card';
-                
-                card.innerHTML = `
-                    <div class="item-number">${index + 1}</div>
-                    <div class="item-text">${item}</div>
-                    <div class="item-arrow">→</div>
-                `;
-                
-                // 클릭 이벤트: 새 탭에서 URL 열기
-                card.addEventListener('click', () => {
-                    const url = URL_MAP[category][item];
-                    window.open(url, '_blank', 'noopener,noreferrer');
-                });
-                
-                container.appendChild(card);
-            });
-        }
+        // 리스트 생성
+        const listContainer = document.getElementById(targetListId);
+        listContainer.innerHTML = ''; // 초기화
 
-        // 초기화 함수
-        document.addEventListener('DOMContentLoaded', () => {
-            // 메인 메뉴 카드 클릭 이벤트
-            document.querySelectorAll('.menu-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    const category = card.dataset.category;
-                    
-                    if (category === '교무 업무') {
-                        createItemList(category, 'gyomuList');
-                        showScreen('gyomuScreen');
-                    } else if (category === '연구 업무') {
-                        createItemList(category, 'yeonguList');
-                        showScreen('yeonguScreen');
-                    }
-                });
-            });
-            
-            // 뒤로가기 버튼 이벤트
-            document.getElementById('backButton1').addEventListener('click', () => {
-                showScreen('mainScreen');
-            });
-            
-            document.getElementById('backButton2').addEventListener('click', () => {
-                showScreen('mainScreen');
-            });
-        });
+        const items = URL_MAP[category];
+        let index = 1;
 
-        // Elements SDK 초기화
-        if (window.elementSdk) {
-            const defaultConfig = {
-                main_title: "충청남도 교육청 교무학사 업무 매뉴얼[초등]",
-                category_1: "교무 업무",
-                category_2: "연구 업무",
-                back_button_text: "← 메인으로 돌아가기"
+        for (const [title, url] of Object.entries(items)) {
+            const card = document.createElement('div');
+            card.className = 'item-card';
+            card.innerHTML = `
+                <div class="item-number">${index++}</div>
+                <div class="item-text">${title}</div>
+                <div style="color:#0097a7; font-weight:bold;">→</div>
+            `;
+            // 클릭 시 새 창 열기
+            card.onclick = function() {
+                window.open(url, '_blank');
             };
-
-            window.elementSdk.init({
-                defaultConfig: defaultConfig,
-                
-                onConfigChange: async (config) => {
-                    const mainTitle = config.main_title || defaultConfig.main_title;
-                    const category1 = config.category_1 || defaultConfig.category_1;
-                    const category2 = config.category_2 || defaultConfig.category_2;
-                    const backButtonText = config.back_button_text || defaultConfig.back_button_text;
-
-                    document.getElementById('mainTitle').textContent = mainTitle;
-                    document.getElementById('category1').textContent = '📚 ' + category1;
-                    document.getElementById('category2').textContent = '💡 ' + category2;
-                    document.getElementById('backButtonText1').textContent = backButtonText;
-                    document.getElementById('backButtonText2').textContent = backButtonText;
-                },
-
-                mapToCapabilities: (config) => ({
-                    recolorables: [],
-                    borderables: [],
-                    fontEditable: undefined,
-                    fontSizeable: undefined
-                }),
-
-                mapToEditPanelValues: (config) => new Map([
-                    ["main_title", config.main_title || defaultConfig.main_title],
-                    ["category_1", config.category_1 || defaultConfig.category_1],
-                    ["category_2", config.category_2 || defaultConfig.category_2],
-                    ["back_button_text", config.back_button_text || defaultConfig.back_button_text]
-                ])
-            });
+            listContainer.appendChild(card);
         }
-    </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9b9bd73f1135ea12',t:'MTc2NzcwOTA2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 
+        // 해당 화면 보여주기
+        document.getElementById(targetScreenId).classList.add('active');
+        window.scrollTo(0, 0);
+    }
+
+    // 메인으로 돌아가기 함수
+    function goHome() {
+        document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+        document.getElementById('mainScreen').classList.add('active');
+        window.scrollTo(0, 0);
+    }
+  </script>
+ </body>
 </html>
-
-
-
-
